@@ -9,6 +9,7 @@
   </head>
   <body>
     <div class="game">
+      <div class="winStatement" id="winStatement"></div>
       <div class="arena">
         <div class="player-card p1">
           <div class="avatar"></div>
@@ -16,8 +17,8 @@
           <div class="health">
             <div class="health-pos" id="p1HealthBar"></div>
           </div>
-          <div class="health-numbers">
-            <span class="remaning-health" id="p1RemaningHealth">100</span>/100
+          <div class="health-numbers" id="health-numbers-1">
+            HP:<span class="remaning-health" id="p1RemaningHealth">100</span>
           </div>
         </div>
 
@@ -27,19 +28,25 @@
           <div class="health">
             <div class="health-pos" id="p2HealthBar"></div>
           </div>
-          <div class="health-numbers">
-            <span class="remaning-health" id="p2RemaningHealth">100</span>/100
+          <div class="health-numbers" id="health-numbers-2">
+            HP-<span class="remaning-health" id="p2RemaningHealth">100</span>
           </div>
         </div>
       </div>
 
       <div class="actions">
         <div class="btn-wrapper">
-          <button class="btn shoot" id="p1fire">P1Fire-A</button>
+          <button class="btn shoot" id="p1fire">
+            Fire <br /><small class="small-btn">Press A</small>
+          </button>
         </div>
-        <button class="btn Reset" id="reset">Reset-R</button>
+        <button class="btn Reset" id="reset">
+          Reset <br /><small class="small-btn">Press A</small>
+        </button>
         <div class="btn-wrapper">
-          <button class="btn shoot" id="p2fire">P2Fire-D</button>
+          <button class="btn shoot" id="p2fire">
+            Fire<br /><small class="small-btn">Press L</small>
+          </button>
         </div>
       </div>
 
@@ -61,7 +68,18 @@
         </table>
       </div>
 
-      <div class="winStatement" id="winStatement"></div>
+      <div class="rules">
+        <h2>RULES</h2>
+        <ul>
+          <li>
+            Two players Tom and Jerry can shoot each other by pressing the Fire
+            button or repective keys
+          </li>
+          <li>Players loose random HP between (0-5) when opponent shoots</li>
+          <li>Once a Player looses the HP below 0 the round is Declared</li>
+          <li>Player with most wins in 5 rounds wins the game</li>
+        </ul>
+      </div>
     </div>
 
     <script src="index.js"></script>

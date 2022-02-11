@@ -2,8 +2,7 @@ const p1fire = document.getElementById("p1fire");
 const p2fire = document.getElementById("p2fire");
 
 var winStatement = `Welcome , lets have a fight &#128520;
-                    <br>Press fire button to start the fight
-                    <br>Best of 5 rounds wins`;
+                    <br>Press fire button to start the fight`;
 
 //ui elements to be chnaged
 const p1HealthBar = document.getElementById("p1HealthBar");
@@ -93,6 +92,7 @@ function shoot(p) {
   winStatement = `&#128640; Fightttttttttttttttttttttttt &#128165; `;
   var power = getRandomInt(5);
   p.health = p.health - power;
+  blink(p);
 }
 
 // function to get random integer
@@ -169,4 +169,13 @@ reset.addEventListener("click", () => {
   updateUI();
 });
 
+function blink(p) {
+  var select = document.getElementById(`health-numbers-${p.id}`);
+
+  select.classList.add("blink");
+
+  setTimeout(() => {
+    select.classList.remove("blink");
+  }, 1000);
+}
 updateUI();

@@ -66,6 +66,10 @@
   overflow: hidden;
 }
 
+.blink {
+  animation: blinker 1s infinite;
+}
+
 .health-pos {
   width: 100%;
   height: 100%;
@@ -135,6 +139,16 @@
   color: #ffffff;
 }
 
+.small-btn {
+  font-size: 12px;
+  font-weight: 100;
+  color: rgb(228, 228, 228);
+}
+
+.health-numbers {
+  font-size: 20px;
+}
+
 #reset {
   cursor: pointer;
 }
@@ -165,8 +179,58 @@ td {
 }
 
 .winStatement {
+  min-height: 40px;
   text-align: center;
+  font-size: 16px;
   font-weight: 500;
+}
+
+.rules {
+  background-color: #ff3cac;
+  background-image: -webkit-linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
+  background-image: -moz-linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
+  background-image: -o-linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
+  background-image: linear-gradient(
+    225deg,
+    #ff3cac 0%,
+    #784ba0 50%,
+    #2b86c5 100%
+  );
+
+  color: white;
+  max-width: 800px;
+  margin: 0px auto;
+  list-style-position: inside;
+  padding: 10px;
+  border-radius: 7px;
+}
+
+@keyframes blinker {
+  from {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    font-weight: 700;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media only screen and (max-width: 500px) {
