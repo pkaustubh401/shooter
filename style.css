@@ -42,12 +42,12 @@
 }
 
 .p1 .avatar {
-  background-image: url(images/jerry.png);
+  background-image: url(Images/jerry.png);
   background-size: cover;
 }
 
 .p2 .avatar {
-  background-image: url(images/tom.png);
+  background-image: url(Images/tom.png);
   background-size: cover;
 }
 
