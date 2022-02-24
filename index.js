@@ -57,7 +57,7 @@ document.addEventListener("keyup", (event) => {
     updateUI();
   }
 
-  if (event.keyCode === 68) {
+  if (event.keyCode === 76) {
     console.log(event.which);
     shoot(p1);
     if (isDead(p1)) {
