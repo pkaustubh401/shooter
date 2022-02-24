@@ -18,24 +18,55 @@ const winStatementdiv = document.getElementById("winStatement");
 
 const reset = document.getElementById("reset");
 
-var game = {
-  round: {
-    roundNumber: 1,
-  },
-  p1wins: 0,
-  p2wins: 0,
-};
+//localstorage
+//initialize localstorage
+//set game object variables
+//update local storage
 
-var p1 = {
-  id: 1,
-  name: "player1",
-  health: 100,
-};
-var p2 = {
-  id: 2,
-  name: "player2",
-  health: 100,
-};
+function initializeLocalStorage() {
+  if (!localStorage.getItem("roundNumber")) {
+    localStorage.setItem("roundNumber", 1);
+    console.log(Number(localStorage.getItem("roundNumber")));
+  } else {
+    console.log(Number(localStorage.getItem("roundNumber")));
+  }
+
+  if (!localStorage.getItem("p1Wins")) {
+    localStorage.setItem("p1Wins", 0);
+    console.log(Number(localStorage.getItem("p1Wins")));
+  } else {
+    console.log(Number(localStorage.getItem("p1Wins")));
+  }
+
+  if (!localStorage.getItem("p2Wins")) {
+    localStorage.setItem("p2Wins", 0);
+    console.log(Number(localStorage.getItem("p2Wins")));
+  } else {
+    console.log(Number(localStorage.getItem("p2Wins")));
+  }
+}
+
+function initializeVariables() {
+  game = {
+    state: true,
+    round: {
+      roundNumber: Number(localStorage.getItem("roundNumber")),
+    },
+    p1wins: Number(localStorage.getItem("p1Wins")),
+    p2wins: Number(localStorage.getItem("p2Wins")),
+  };
+
+  p1 = {
+    id: 1,
+    name: "player1",
+    health: 100,
+  };
+  p2 = {
+    id: 2,
+    name: "player2",
+    health: 100,
+  };
+}
 
 //firing
 
@@ -45,37 +76,42 @@ p1fire.addEventListener("click", () => {
     newRound();
   }
   updateUI();
+  updateLocalStorage();
 });
 
 document.addEventListener("keyup", (event) => {
-  if (event.keyCode === 65) {
+  if (event.keyCode === 65 && game.state) {
     console.log(event.which);
     shoot(p2);
     if (isDead(p2)) {
       newRound();
     }
     updateUI();
+    updateLocalStorage();
   }
 
-  if (event.keyCode === 76) {
+  if (event.keyCode === 76 && game.state) {
     console.log(event.which);
     shoot(p1);
     if (isDead(p1)) {
       newRound();
     }
     updateUI();
+    updateLocalStorage();
   }
 
   if (event.keyCode === 82) {
     console.log(event.which);
+    game.state = true;
     p1fire.disabled = false;
     p2fire.disabled = false;
-    game.round.roundNumber = 1;
+    game.round.roundNumber = 0;
     game.p1wins = 0;
     game.p2wins = 0;
     newRound();
     winStatement = `&#128127; New Game Started`;
     updateUI();
+    updateLocalStorage();
   }
 });
 
@@ -85,6 +121,7 @@ p2fire.addEventListener("click", () => {
     newRound();
   }
   updateUI();
+  updateLocalStorage();
 });
 
 //shoot function that depletes health of opponent
@@ -124,6 +161,7 @@ function newRound() {
   p2.health = 100;
 
   if (game.round.roundNumber >= 5 || game.p1wins >= 3 || game.p2wins >= 3) {
+    game.state = false;
     declareWin();
     p1fire.disabled = true;
     p2fire.disabled = true;
@@ -148,6 +186,12 @@ function updateUI() {
   winStatementdiv.innerHTML = winStatement;
 }
 
+function updateLocalStorage() {
+  localStorage.setItem("roundNumber", game.round.roundNumber);
+  localStorage.setItem("p1Wins", game.p1wins);
+  localStorage.setItem("p2Wins", game.p2wins);
+}
+
 //declare Win will check who is the game winner and print a win statement
 function declareWin() {
   if (game.p2wins > game.p1wins) {
@@ -159,6 +203,7 @@ function declareWin() {
 
 //reset button function
 reset.addEventListener("click", () => {
+  game.state = true;
   p1fire.disabled = false;
   p2fire.disabled = false;
   game.round.roundNumber = 1;
@@ -167,6 +212,7 @@ reset.addEventListener("click", () => {
   newRound();
   winStatement = `&#128127; New Game Started`;
   updateUI();
+  updateLocalStorage();
 });
 
 function blink(p) {
@@ -178,4 +224,14 @@ function blink(p) {
     select.classList.remove("blink");
   }, 1000);
 }
+
+initializeLocalStorage();
+initializeVariables();
 updateUI();
+if (game.round.roundNumber >= 5 || game.p1wins >= 3 || game.p2wins >= 3) {
+  game.state = false;
+  declareWin();
+  p1fire.disabled = true;
+  p2fire.disabled = true;
+}
+updateLocalStorage();
